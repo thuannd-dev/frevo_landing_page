@@ -1,0 +1,66 @@
+import type { MetadataRoute } from "next";
+import { CASES } from "@/lib/content";
+import { SERVICE_CATEGORIES, INDUSTRY_PAGES, LOCATION_PAGES } from "@/lib/agency";
+import { allPseoSlugs } from "@/lib/pseo";
+import { POSTS } from "@/lib/cms";
+import { SITE_URL as BASE } from "@/lib/site";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticRoutes = [
+    "",
+    "/about",
+    "/services",
+    "/industries",
+    "/locations",
+    "/portfolio",
+    "/work",
+    "/blog",
+    "/careers",
+    "/contact",
+  ].map((path) => ({
+    url: `${BASE}${path}`,
+    changeFrequency: "monthly" as const,
+    priority: path === "" ? 1 : 0.8,
+  }));
+
+  const services = SERVICE_CATEGORIES.flatMap((c) => [
+    { url: `${BASE}/services/${c.slug}`, changeFrequency: "monthly" as const, priority: 0.7 },
+    ...c.items.map((it) => ({
+      url: `${BASE}/services/${c.slug}/${it.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ]);
+
+  const industries = INDUSTRY_PAGES.map((p) => ({
+    url: `${BASE}/industries/${p.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const locations = LOCATION_PAGES.map((p) => ({
+    url: `${BASE}/locations/${p.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const cases = CASES.map((c) => ({
+    url: `${BASE}/work/${c.id}`,
+    changeFrequency: "yearly" as const,
+    priority: 0.6,
+  }));
+
+  const posts = POSTS.map((p) => ({
+    url: `${BASE}/blog/${p.slug}`,
+    changeFrequency: "yearly" as const,
+    priority: 0.5,
+  }));
+
+  const pseo = allPseoSlugs().map((slug) => ({
+    url: `${BASE}/${slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...services, ...industries, ...locations, ...pseo, ...cases, ...posts];
+}

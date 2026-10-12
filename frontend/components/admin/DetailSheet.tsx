@@ -1,0 +1,132 @@
+"use client";
+
+import { Pencil } from "lucide-react";
+import type { Collection, Entry, Field } from "@/lib/admin/types";
+import { stripHtml, looksLikeHtml } from "@/lib/admin/html";
+import { Sheet } from "./Sheet";
+import { Badge, Button } from "./ui";
+
+function FieldValue({ field, value }: { field: Field; value: unknown }) {
+  if (value === undefined || value === null || value === "")
+    return <span className="text-sm text-zinc-500"></span>;
+
+  switch (field.type) {
+    case "boolean":
+      return <Badge tone={value ? "won" : "default"}>{value ? "Yes" : "No"}</Badge>;
+    case "image":
+      // eslint-disable-next-line @next/next/no-img-element
+      return <img src={String(value)} alt="" className="mt-1 h-28 w-auto rounded-lg border border-zinc-800 object-cover" />;
+    case "video":
+      // eslint-disable-next-line jsx-a11y/media-has-caption
+      return <video src={String(value)} className="mt-1 h-28 w-auto rounded-lg border border-zinc-800" controls />;
+    case "tags":
+      return (
+        <div className="flex flex-wrap gap-1.5">
+          {(value as string[]).map((t, i) => (
+            <Badge key={i}>{t}</Badge>
+          ))}
+        </div>
+      );
+    case "paragraphs":
+      return (
+        <div className="space-y-2">
+          {(value as string[]).map((p, i) => (
+            <p key={i} className="text-sm text-zinc-400">{p}</p>
+          ))}
+        </div>
+      );
+    case "richtext":
+      // Author-written markup, render it instead of printing the tags.
+      return (
+        <div
+          className="cm-prose max-h-80 max-w-none overflow-y-auto overscroll-contain rounded-lg border border-zinc-800 bg-zinc-800/40 px-3 py-2.5 text-sm text-zinc-300"
+          dangerouslySetInnerHTML={{ __html: String(value) }}
+        />
+      );
+    case "textarea":
+      return (
+        <p className="whitespace-pre-wrap text-sm text-zinc-300">
+          {stripHtml(value) || String(value)}
+        </p>
+      );
+    case "object":
+      return (
+        <div className="rounded-lg border border-zinc-800 bg-zinc-800/50 p-2 text-sm text-zinc-300">
+          {(field.fields ?? []).map((sub) => (
+            <div key={sub.name} className="flex gap-2">
+              <span className="text-zinc-500">{sub.label}:</span>
+              <span>{String((value as Record<string, unknown>)?.[sub.name] ?? "")}</span>
+            </div>
+          ))}
+        </div>
+      );
+    case "objectList":
+      return (
+        <div className="space-y-1.5">
+          {(value as Record<string, unknown>[]).map((row, i) => (
+            <div key={i} className="rounded-md border border-zinc-800 bg-zinc-800/50 px-2 py-1 text-xs text-zinc-400">
+              {(field.fields ?? []).map((sub) => String(row?.[sub.name] ?? "")).filter(Boolean).join(" · ")}
+            </div>
+          ))}
+        </div>
+      );
+    default:
+      // Some legacy WordPress-imported values (e.g. titles) carry stray markup, 
+      // show the readable text rather than the tags.
+      return (
+        <span className="text-sm text-zinc-300">
+          {looksLikeHtml(value) ? stripHtml(value) : String(value)}
+        </span>
+      );
+  }
+}
+
+export function DetailSheet({
+  collection,
+  entry,
+  open,
+  onOpenChange,
+  onEdit,
+}: {
+  collection: Collection;
+  entry: Entry | null;
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  onEdit: () => void;
+}) {
+  const title = entry
+    ? stripHtml(entry[collection.titleField || "name"] ?? collection.name)
+    : "";
+  return (
+    <Sheet
+      open={open}
+      onOpenChange={onOpenChange}
+      title={title}
+      description={entry?._status ? undefined : collection.name}
+      width="max-w-lg"
+      footer={
+        <Button onClick={onEdit}>
+          <Pencil className="size-4" /> Edit
+        </Button>
+      }
+    >
+      {entry && (
+        <dl className="space-y-4">
+          {entry._status && (
+            <div className="flex items-center gap-2">
+              <Badge tone={entry._status}>{entry._status}</Badge>
+            </div>
+          )}
+          {collection.fields.map((field) => (
+            <div key={field.name}>
+              <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-zinc-500">{field.label}</dt>
+              <dd>
+                <FieldValue field={field} value={entry[field.name]} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </Sheet>
+  );
+}

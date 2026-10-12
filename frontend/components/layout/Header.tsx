@@ -1,0 +1,366 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useReducedMotion,
+} from "motion/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { NAV, SITE } from "@/lib/content";
+import { SERVICE_CATEGORIES, type ServiceCategory } from "@/lib/agency";
+import { EASE } from "@/lib/motion";
+import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/fx/Magnetic";
+import { BookingButton } from "@/components/booking/BookingButton";
+import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
+
+const API = (process.env.NEXT_PUBLIC_API_URL || "https://cms.thecreativemonk.in").replace(/\/$/, "");
+
+export function Header({ dark = true }: { dark?: boolean }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [services, setServices] = useState(false);
+  const [mobileServices, setMobileServices] = useState(false);
+  const [categories, setCategories] = useState<ServiceCategory[]>(
+    SERVICE_CATEGORIES as unknown as ServiceCategory[],
+  );
+
+  // Hydrate the mega-menu from the API (falls back to bundled categories).
+  useEffect(() => {
+    if (!API) return;
+    let alive = true;
+    fetch(`${API}/api/content/service_categories`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive && Array.isArray(d) && d.length) setCategories(d);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const closeTimer = useRef<number | null>(null);
+  const reduce = useReducedMotion() ?? false;
+  const { scrollY, scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 30,
+    mass: 0.3,
+  });
+
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 40));
+
+  // Reset the mobile accordion whenever the overlay closes.
+  useEffect(() => {
+    if (!open) setMobileServices(false);
+  }, [open]);
+
+  // Escape closes whichever menu is open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setServices(false);
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const openServices = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    setServices(true);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setServices(false), 120);
+  };
+
+  // Solid whenever something sits beneath the bar, so content never shows through.
+  const solid = scrolled || services || open;
+
+  // Lock the page behind the mobile menu; the menu scrolls on its own.
+  useEffect(() => {
+    if (!open) return;
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prev;
+    };
+  }, [open]);
+
+  return (
+    <>
+      <header
+        onMouseLeave={scheduleClose}
+        onBlur={(e) => {
+          // close when focus leaves the header entirely (keyboard path)
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null))
+            scheduleClose();
+        }}
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+          solid
+            ? dark
+              ? "bg-dark/90 shadow-[0_1px_0_0_var(--color-line-invert)] backdrop-blur-xl"
+              : "bg-paper/90 shadow-[0_1px_0_0_var(--color-line)] backdrop-blur-xl"
+            : "bg-transparent",
+        )}
+      >
+        <div className="shell flex h-16 items-center justify-between md:h-18">
+          <Link href="/" aria-label="Creative Monk, home" onMouseEnter={scheduleClose}>
+            <Logo invert={dark} />
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-7 md:flex lg:gap-9">
+            {NAV.map((item) => {
+              const isServices = item.label === "Services";
+              return (
+                <div
+                  key={item.label}
+                  onMouseEnter={isServices ? openServices : scheduleClose}
+                  onFocus={isServices ? openServices : undefined}
+                  className="flex items-center"
+                >
+                  <Link
+                    href={item.href}
+                    aria-haspopup={isServices || undefined}
+                    aria-expanded={isServices ? services : undefined}
+                    aria-controls={isServices ? "services-menu" : undefined}
+                    className={cn(
+                      "label group/nav relative inline-flex items-center gap-1 py-1 transition-colors",
+                      dark ? "text-on-ink-2 hover:text-on-ink" : "text-ink-2 hover:text-ink",
+                      isServices && services && "text-orange",
+                    )}
+                  >
+                    {item.label}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-orange transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/nav:w-full" />
+                  </Link>
+                </div>
+              );
+            })}
+            <ThemeToggle />
+            <Magnetic strength={0.5}>
+              <BookingButton
+                onMouseEnter={scheduleClose}
+                className="group/cta label flex h-9 cursor-pointer items-center gap-1.5 bg-orange px-4 text-on-orange transition-colors duration-200 hover:bg-orange-press"
+              >
+                Free strategy call
+                <ArrowRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5" />
+              </BookingButton>
+            </Magnetic>
+          </nav>
+
+          {/* Mobile: theme + menu */}
+          <div className="flex items-center gap-1.5 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="relative z-50 flex size-10 items-center justify-center"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+            >
+              <span className="relative block h-3 w-6">
+                <span className={cn("absolute left-0 top-0 h-0.5 w-6 transition-all duration-300", dark ? "bg-on-ink" : "bg-ink", open && "top-1.5 rotate-45")} />
+                <span className={cn("absolute bottom-0 left-0 h-0.5 w-6 transition-all duration-300", dark ? "bg-on-ink" : "bg-ink", open && "bottom-1.5 -rotate-45")} />
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Services mega-menu ── */}
+        <AnimatePresence>
+          {services && (
+            <motion.div
+              id="services-menu"
+              role="region"
+              aria-label="Services"
+              onMouseEnter={openServices}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+              transition={{ duration: reduce ? 0 : 0.25, ease: EASE.outQuart }}
+              className="hidden border-t border-line-invert bg-dark/95 backdrop-blur-xl md:block"
+            >
+              <div className="shell py-9">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-3">
+                  {categories.map((cat) => (
+                    <div
+                      key={cat.slug}
+                      className="min-w-0 border-t border-line-invert pt-4"
+                    >
+                      <Link
+                        href={`/services/${cat.slug}`}
+                        onClick={() => setServices(false)}
+                        className="group/cat flex items-baseline gap-2"
+                      >
+                        <span className="mono shrink-0 text-xs text-orange">
+                          {cat.index}
+                        </span>
+                        <span className="display text-base leading-tight text-on-ink transition-colors group-hover/cat:text-orange lg:text-lg">
+                          {cat.name}
+                        </span>
+                      </Link>
+                      <p className="mt-1 line-clamp-1 pl-7 text-xs text-on-ink-3">
+                        {cat.tagline}
+                      </p>
+                      <ul className="mt-4 space-y-2 pl-7">
+                        {cat.items.map((it) => (
+                          <li key={it.slug}>
+                            <Link
+                              href={`/services/${cat.slug}/${it.slug}`}
+                              onClick={() => setServices(false)}
+                              className="group/it inline-flex items-center gap-2 text-[15px] leading-snug text-on-ink-2 transition-colors hover:text-orange"
+                            >
+                              <span className="h-px w-0 bg-orange transition-all duration-300 group-hover/it:w-3" />
+                              {it.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="border-t border-line-invert">
+                <div className="shell flex items-center justify-between py-4">
+                  <span className="mono text-on-ink-3">
+                    Six outcomes · one studio
+                  </span>
+                  <Link
+                    href="/services"
+                    onClick={() => setServices(false)}
+                    className="group label inline-flex items-center gap-1.5 text-on-ink transition-colors hover:text-orange"
+                  >
+                    All services
+                    <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* scroll-progress bar, pinned to the nav bar, not the growing header box */}
+        {!reduce && (
+          <motion.div
+            aria-hidden
+            style={{ scaleX: progress }}
+            className={cn(
+              "absolute inset-x-0 top-16 h-0.5 origin-left bg-orange md:top-18",
+              scrolled ? "opacity-100" : "opacity-0",
+            )}
+          />
+        )}
+      </header>
+
+      {/* ── Mobile menu ── */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            // Starts below the header so items never scroll under the logo.
+            // data-lenis-prevent hands wheel/touch scrolling back to this panel.
+            data-lenis-prevent
+            className={cn(
+              "scrollbar-orange fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain md:hidden",
+              dark ? "bg-dark" : "bg-paper",
+            )}
+            initial={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
+            animate={reduce ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
+            exit={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: reduce ? 0.2 : 0.5, ease: EASE.inOutQuart }}
+          >
+            {/* min-h-full + justify-center: centred when short, scrolls from the top when long */}
+            <div className="flex min-h-full flex-col justify-center px-[var(--gutter)] py-10">
+            <nav className="flex flex-col">
+              {NAV.map((item, i) => {
+                const isServices = item.label === "Services";
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={reduce ? false : { y: 24, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: reduce ? 0 : 0.1 + i * 0.05, ease: EASE.outQuart }}
+                    className={dark ? "border-t border-line-invert" : "border-t border-line"}
+                  >
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "display flex items-center gap-3 py-4 text-3xl font-extrabold",
+                          dark ? "text-on-ink" : "text-ink",
+                        )}
+                      >
+                        <span className="mono text-orange">0{i + 1}</span>
+                        {item.label}
+                      </Link>
+                      {isServices && (
+                        <button
+                          onClick={() => setMobileServices((v) => !v)}
+                          aria-label="Toggle services"
+                          aria-expanded={mobileServices}
+                          className="mono px-3 text-2xl text-orange"
+                        >
+                          {mobileServices ? "–" : "+"}
+                        </button>
+                      )}
+                    </div>
+                    {isServices && mobileServices && (
+                      <ul className="mb-5 ml-9 space-y-3">
+                        {categories.map((cat) => (
+                          <li key={cat.slug}>
+                            <Link
+                              href={`/services/${cat.slug}`}
+                              onClick={() => setOpen(false)}
+                              className={cn(
+                                "label flex items-center justify-between py-2.5 transition-colors hover:text-orange",
+                                dark ? "text-on-ink" : "text-ink",
+                              )}
+                            >
+                              {cat.name}
+                              <ArrowUpRight className="size-3.5 text-orange" />
+                            </Link>
+                            <ul className={cn("border-l pl-3", dark ? "border-line-invert" : "border-line")}>
+                              {cat.items.map((it) => (
+                                <li key={it.slug}>
+                                  <Link
+                                    href={`/services/${cat.slug}/${it.slug}`}
+                                    onClick={() => setOpen(false)}
+                                    className={cn(
+                                      "block py-2.5 text-[15px] transition-colors hover:text-orange",
+                                      dark ? "text-on-ink-2" : "text-ink-2",
+                                    )}
+                                  >
+                                    {it.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </nav>
+            <div className={cn("mono mt-10 flex flex-col gap-1", dark ? "text-on-ink-3" : "text-ink-3")}>
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>
+            </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
