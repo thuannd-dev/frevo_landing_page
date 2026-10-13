@@ -90,12 +90,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-<html
-  lang="en"
-  className={cn(archivo.variable, inter.variable, spaceMono.variable)}
-  suppressHydrationWarning
->
-      <body>
+    <html
+      lang="en"
+      className={cn(archivo.variable, inter.variable, spaceMono.variable)}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         <Analytics />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <JsonLd data={[organizationSchema(), websiteSchema()]} />

@@ -1,108 +1,78 @@
-import { Header } from "@/components/layout/Header";
-import { Hero } from "@/components/agency/Hero";
-import { Tools } from "@/components/agency/Tools";
-import { Story } from "@/components/agency/Story";
-import { Capabilities } from "@/components/agency/Capabilities";
-import { HorizontalShowcase } from "@/components/agency/HorizontalShowcase";
-import { SkewMarquee } from "@/components/agency/SkewMarquee";
-import { Certs } from "@/components/agency/Certs";
-import { CaseStudies } from "@/components/agency/CaseStudies";
-import { Process } from "@/components/agency/Process";
-import { ReelShowcase } from "@/components/agency/ReelShowcase";
-import { Clients } from "@/components/agency/Clients";
-import { Reviews } from "@/components/agency/Reviews";
-import { Culture } from "@/components/agency/Culture";
-import { FAQ } from "@/components/agency/FAQ";
-import { BigCTA } from "@/components/agency/BigCTA";
-import { ContactForm } from "@/components/agency/ContactForm";
-import { Footer } from "@/components/agency/Footer";
-import {
-  getSite,
-  getHomeHero,
-  getStatBar,
-  getTools,
-  getStory,
-  getTimeline,
-  getServiceCategories,
-  getServicesGrid,
-  getCerts,
-  getCases,
-  getProcess,
-  getClients,
-  getReviews,
-  getReviewSummary,
-  getBenefits,
-  getCultureStats,
-  getFaqs,
-} from "@/lib/cms";
+import type { Metadata } from "next";
+import { FrevoHeader } from "@/components/frevo/FrevoHeader";
+import { FrevoHero } from "@/components/frevo/FrevoHero";
+import { CategoryMarquee } from "@/components/frevo/CategoryMarquee";
+import { RightFit } from "@/components/frevo/RightFit";
+import { FeaturedTalent } from "@/components/frevo/FeaturedTalent";
+import { FrevoProcess } from "@/components/frevo/FrevoProcess";
+import { PlatformCapabilities } from "@/components/frevo/PlatformCapabilities";
+import { TrustSection } from "@/components/frevo/TrustSection";
+import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 
-export default async function HomePage() {
-  const [
-    site,
-    hero,
-    statBar,
-    tools,
-    story,
-    timeline,
-    serviceCategories,
-    servicesGrid,
-    certs,
-    cases,
-    process,
-    clients,
-    reviews,
-    reviewSummary,
-    benefits,
-    cultureStats,
-    faqs,
-  ] = await Promise.all([
-    getSite(),
-    getHomeHero(),
-    getStatBar(),
-    getTools(),
-    getStory(),
-    getTimeline(),
-    getServiceCategories(),
-    getServicesGrid(),
-    getCerts(),
-    getCases(),
-    getProcess(),
-    getClients(),
-    getReviews(),
-    getReviewSummary(),
-    getBenefits(),
-    getCultureStats(),
-    getFaqs(),
-  ]);
+/**
+ * FREVO homepage — synchronous Server Component.
+ * All content comes from static lib/frevo.ts; no CMS fetchers are called.
+ * The Creative Monk CMS data (lib/cms.ts) and agency components are untouched
+ * and continue to serve other routes (/about, /services, /work, etc.).
+ *
+ * SEO: metadata below overrides the root layout's Creative Monk defaults for
+ * this route only. canonical and ogUrl are omitted intentionally until the
+ * FREVO domain is confirmed — adding metadataBase pointing to an unconfirmed
+ * domain would produce misleading structured data.
+ *
+ * JSON-LD: A minimal FREVO WebSite schema is injected inline (see below).
+ * The root layout's organizationSchema / websiteSchema (lib/seo.ts) remain
+ * unchanged and continue to describe Creative Monk on all other routes.
+ */
+export const metadata: Metadata = {
+  title: "FREVO — Where Freelancers Evolve",
+  description:
+    "Find creative freelancers and small teams that fit your project. Branding, video, photography, copywriting and more.",
+  openGraph: {
+    title: "FREVO — Where Freelancers Evolve",
+    description:
+      "Find creative freelancers and small teams that fit your project. Branding, video, photography, copywriting and more.",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FREVO — Where Freelancers Evolve",
+    description:
+      "Find creative freelancers and small teams that fit your project.",
+  },
+};
 
+/** Minimal FREVO WebSite schema — isolated, does not touch lib/seo.ts. */
+const frevoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "FREVO",
+  description:
+    "Creative freelancer marketplace connecting businesses with the right creative talent for project-based work.",
+};
+
+export default function HomePage() {
   return (
     <>
+      {/* Isolated FREVO structured data — CM schemas in root layout are unaffected */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(frevoSchema) }}
+      />
+      {/* "Back to top" anchor target */}
       <span id="top" className="absolute top-0" aria-hidden />
-      <Header dark />
+      <FrevoHeader />
       <main className="bg-dark">
-        <Hero hero={hero} statBar={statBar} />
-        <Tools tools={tools} />
-        <Story story={story} timeline={timeline} />
-        <Capabilities
-          stats={statBar}
-          tools={tools}
-          categories={serviceCategories}
-          founded={site.founded}
-        />
-        <ReelShowcase />
-        <HorizontalShowcase categories={serviceCategories} />
-        <Certs certs={certs} />
-        <CaseStudies cases={cases} />
-        <Clients clients={clients} />
-        <SkewMarquee />
-        <Process process={process} />
-        <Reviews reviews={reviews} summary={reviewSummary} />
-        <Culture benefits={benefits} cultureStats={cultureStats} />
-        <FAQ faqs={faqs} />
-        <BigCTA site={site} statBar={statBar} />
-        <ContactForm site={site} services={servicesGrid} />
+        <FrevoHero />
+        <CategoryMarquee />
+        <RightFit />
+        <FeaturedTalent />
+        <FrevoProcess />
+        <PlatformCapabilities />
+        <TrustSection />
       </main>
-      <Footer />
+      <FrevoFooter />
     </>
   );
 }

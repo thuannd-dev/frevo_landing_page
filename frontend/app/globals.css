@@ -160,6 +160,18 @@ body {
   display: inline-block;
 }
 
+/* FREVO wordmark logo: dark-surface (white text) by default, light-surface
+   (black text) under the light theme. Mirrors the logo-cm pattern. */
+.logo-frevo--light {
+  display: none;
+}
+:root[data-theme="light"] .logo-frevo--dark {
+  display: none;
+}
+:root[data-theme="light"] .logo-frevo--light {
+  display: inline-block;
+}
+
 /* ---- Rich-text prose (blog body, case content, the admin editor) ---- */
 .cm-prose {
   font-size: var(--text-body);
