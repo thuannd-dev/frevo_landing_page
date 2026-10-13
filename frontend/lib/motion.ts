@@ -44,7 +44,10 @@ export const lineUp: Variants = {
 
 export const fade: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: DUR.large, ease: EASE.outQuart } },
+  show: {
+    opacity: 1,
+    transition: { duration: DUR.large, ease: EASE.outQuart },
+  },
 };
 
 export const spring: Transition = {
