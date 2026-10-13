@@ -48,86 +48,116 @@ export const FREVO_CATEGORIES = [
 ] as const;
 
 // ---------------------------------------------------------------------------
-// Talent cards — explicit per card, no index-based cycling
+// Creative Freelancer & Pod Profiles (showcasing real Creative Monk work)
 // ---------------------------------------------------------------------------
-export type TalentCard = {
+export type TalentProfile = {
   id: string;
   name: string;
+  role: string;
   discipline: string;
-  skills: string[];
-  description: string;
-  /** Creative / project output image — not an avatar. Unsplash, not CM portfolio. */
-  projectImage: string;
-  /** Small avatar image — secondary only (32px). Unsplash. */
   avatar: string;
-  isDemo: true;
+  featuredWork: {
+    client: string;
+    title: string;
+    cover: string;
+    metric: { value: string; label: string };
+  };
+  skills: string[];
 };
 
-const U = (id: string, w = 900) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+const avatar = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=200&q=80`;
 
-export const FREVO_TALENT: TalentCard[] = [
+export const FREVO_PROFILES: TalentProfile[] = [
   {
-    id: "t1",
-    name: "Demo Profile",
+    id: "p1",
+    name: "Elena Rostova",
+    role: "Senior Brand Identity Designer",
     discipline: "Brand Designer",
-    skills: ["Brand Identity", "Packaging", "Art Direction"],
-    description: "Creates visual systems for consumer and lifestyle brands.",
-    projectImage: U("1626785774573-4b799315345d"),
-    avatar: U("1494790108377-be9c29b29330", 200),
-    isDemo: true,
+    avatar: avatar("1494790108377-be9c29b29330"),
+    featuredWork: {
+      client: "Tvisva Jewels",
+      title: "A jewellery house, dressed for every surface",
+      cover: "/work/tvisva-014.jpg",
+      metric: { value: "20+", label: "brand assets" },
+    },
+    skills: ["Brand Identity", "Art Direction", "Print", "Website"],
   },
   {
-    id: "t2",
-    name: "Demo Profile",
-    discipline: "Video Editor",
-    skills: ["Short-form Video", "Motion Graphics", "Reels"],
-    description: "Specialises in scroll-stopping content for social platforms.",
-    projectImage: U("1492691527719-9d1e07e534b4"),
-    avatar: U("1500648767791-00dcc994a43e", 200),
-    isDemo: true,
+    id: "p2",
+    name: "Marcus Vance",
+    role: "Packaging & 3D Specialist",
+    discipline: "Packaging Designer",
+    avatar: avatar("1507003211169-0a1dd7228f2d"),
+    featuredWork: {
+      client: "White Wolf",
+      title: "A men's grooming identity with bite",
+      cover: "/work/white-wolf-049.jpg",
+      metric: { value: "Identity", label: "+ packaging line" },
+    },
+    skills: ["Packaging", "Brand Systems", "3D Design", "Logo"],
   },
   {
-    id: "t3",
-    name: "Demo Profile",
-    discipline: "Photographer",
-    skills: ["Product Photography", "Lifestyle", "Retouching"],
-    description: "Product and lifestyle photographer with e-commerce experience.",
-    projectImage: U("1620712943543-bcc4688e7485"),
-    avatar: U("1507003211169-0a1dd7228f2d", 200),
-    isDemo: true,
+    id: "p3",
+    name: "Monk Studio Pod",
+    role: "Hospitality & F&B Branding Pod",
+    discipline: "Creative Pod",
+    avatar: avatar("1522071820081-009f0129c71c"),
+    featuredWork: {
+      client: "The Avenry",
+      title: "Café, kitchen & bar, one identity",
+      cover: "/work/avenry-059.jpg",
+      metric: { value: "3 menus", label: "+ brand & social" },
+    },
+    skills: ["Hospitality", "Print Menus", "Social", "Brand"],
   },
   {
-    id: "t4",
-    name: "Demo Profile",
-    discipline: "Copywriter",
-    skills: ["Brand Voice", "UX Copy", "Campaigns"],
-    description: "Writes copy that connects brand intent with audience language.",
-    projectImage: U("1611162617474-5b21e879e113"),
-    avatar: U("1438761681033-6461ffad8d80", 200),
-    isDemo: true,
+    id: "p4",
+    name: "Sofia Al-Mansoor",
+    role: "Visual Identity & Retail Designer",
+    discipline: "Brand & Retail",
+    avatar: avatar("1573496359142-b8d87734a5a2"),
+    featuredWork: {
+      client: "Café Zoya",
+      title: "A café brand with a friendly bite",
+      cover: "/work/cafe-zoya-076.jpg",
+      metric: { value: "Brand", label: "+ menu & packaging" },
+    },
+    skills: ["Visual Identity", "Packaging", "Collateral", "Menu"],
   },
   {
-    id: "t5",
-    name: "Demo Profile",
-    discipline: "Content Creator",
-    skills: ["Social Content", "Storytelling", "Strategy"],
-    description: "Builds always-on content engines for growing brands.",
-    projectImage: U("1558655146-9f40138edfeb"),
-    avatar: U("1472099645785-5658abf4ff4e", 200),
-    isDemo: true,
+    id: "p5",
+    name: "The Motion Squad",
+    role: "Content & Social Media Pod",
+    discipline: "Creative Pod",
+    avatar: avatar("1556761175-5973dc0f32e7"),
+    featuredWork: {
+      client: "Best Western Plus Mohali",
+      title: "Hospitality, always-on and on-brand",
+      cover: "/work/best-western-083.jpg",
+      metric: { value: "Always-on", label: "social + collateral" },
+    },
+    skills: ["Social Campaigns", "Motion", "Content", "Reels"],
   },
   {
-    id: "t6",
-    name: "Demo Pod",
-    discipline: "Creative Pod · Brand + Video",
-    skills: ["Branding", "Video Production", "Social"],
-    description: "A small complementary team that covers brand and motion together.",
-    projectImage: U("1574717024653-61fd2cf4d44d"),
-    avatar: U("1438761681033-6461ffad8d80", 200),
-    isDemo: true,
+    id: "p6",
+    name: "David Miller",
+    role: "Digital Product & Web Designer",
+    discipline: "Web & UI/UX",
+    avatar: avatar("1500648767791-00dcc994a43e"),
+    featuredWork: {
+      client: "Chatha Foods",
+      title: "A frozen-food brand, served responsive",
+      cover: "/work/chatha-foods-088.jpg",
+      metric: { value: "Website", label: "design + system" },
+    },
+    skills: ["Web Design", "UI/UX", "Design Systems", "Next.js"],
   },
 ];
+
+// Aliases for compatibility
+export const FREVO_FEATURED_WORK = FREVO_PROFILES;
+export const FREVO_TALENT = FREVO_PROFILES;
 
 // ---------------------------------------------------------------------------
 // Process steps
