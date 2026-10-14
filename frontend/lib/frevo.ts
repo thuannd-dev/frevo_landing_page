@@ -417,6 +417,13 @@ export const FREVO_FOOTER_GROUPS = [
   },
 ] as const;
 
+export const FREVO_SOCIALS = [
+  { label: "LinkedIn", href: "https://linkedin.com" },
+  { label: "X / Twitter", href: "https://x.com" },
+  { label: "Instagram", href: "https://instagram.com" },
+] as const;
+
+
 // ---------------------------------------------------------------------------
 // Section 02: Differentiators (Why FREVO vs Traditional Platforms)
 // ---------------------------------------------------------------------------

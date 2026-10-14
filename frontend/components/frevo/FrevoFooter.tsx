@@ -1,17 +1,66 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowUp, ArrowRight } from "lucide-react";
-import { FREVO_SITE, FREVO_FOOTER_GROUPS } from "@/lib/frevo";
+import { ArrowUp, ArrowRight, Check } from "lucide-react";
+import { FREVO_SITE, FREVO_FOOTER_GROUPS, FREVO_SOCIALS } from "@/lib/frevo";
 import { IMG } from "@/lib/media";
 import { FrevoLogo } from "@/components/frevo/FrevoLogo";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * FREVO footer. Standalone server component — no CMS fetch, no CM contact data,
- * no NewsletterForm, no PSEO directory.
- * CTA band has id="post-project" — anchor target from header/hero CTAs.
- * Buttons use mailto: with distinct subjects for Business vs Freelancer.
- * Footer nav uses only verified routes (/about, /blog, /privacy, /terms) + in-page anchors.
+ * FrevoNewsletterForm — client component embedded directly inside FrevoFooter.
+ */
+function FrevoNewsletter() {
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setDone(true);
+  }
+
+  if (done) {
+    return (
+      <p className="mt-6 flex max-w-xs items-center gap-2 border border-line-invert px-4 py-3 text-sm text-on-ink">
+        <Check className="size-4 text-orange" /> You&rsquo;re on the list.
+      </p>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      className="mt-6 flex max-w-xs items-center border border-line-invert focus-within:border-orange transition-colors"
+    >
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email for platform drops"
+        aria-label="Email for platform drops"
+        className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-sm text-on-ink placeholder:text-on-ink-3 focus:outline-none"
+      />
+      <button
+        type="submit"
+        aria-label="Subscribe"
+        className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange text-on-orange transition-colors hover:bg-orange-press"
+      >
+        <ArrowRight className="size-4" />
+      </button>
+    </form>
+  );
+}
+
+/**
+ * FREVO footer.
+ * - BigCTA-inspired background with centered layout and orange accent on "creative connection?".
+ * - Brand + Tagline + Newsletter + Socials.
+ * - Fitted Wordmark "FREVO" in massive display typography (text-[clamp(2.5rem,13vw,12rem)]).
+ * - Bottom bar with copyright, privacy, terms, and Back to top.
  */
 export function FrevoFooter() {
   return (
@@ -77,31 +126,67 @@ export function FrevoFooter() {
       {/* Nav columns */}
       <div className="shell border-t border-line-invert py-14">
         <div className="grid12 gap-y-10">
-          {/* Brand */}
-          <div className="col-span-12 md:col-span-4">
+          {/* Brand + Mission + Newsletter + Socials */}
+          <div className="col-span-12 md:col-span-5">
             <FrevoLogo />
             <p className="mono mt-3 text-on-ink-3">{FREVO_SITE.tagline}</p>
+            <p className="mt-4 max-w-sm text-sm text-on-ink-2 leading-relaxed">
+              The curated marketplace connecting businesses with verified creative freelancers and collaborative pods.
+            </p>
+
+            {/* Newsletter form */}
+            <FrevoNewsletter />
+
+            {/* Social links */}
+            <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2">
+              {FREVO_SOCIALS.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mono text-xs text-on-ink-3 transition-colors hover:text-orange"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Nav groups */}
-          {FREVO_FOOTER_GROUPS.map((group) => (
-            <div key={group.title} className="col-span-6 md:col-span-2 md:col-start-auto">
-              <p className="label text-on-ink-3">{group.title}</p>
-              <ul className="mt-5 space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-on-ink-2 transition-colors hover:text-orange"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          <div className="col-span-12 md:col-span-6 md:col-start-7">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+              {FREVO_FOOTER_GROUPS.map((group) => (
+                <div key={group.title}>
+                  <p className="label text-on-ink-3">{group.title}</p>
+                  <ul className="mt-5 space-y-3">
+                    {group.links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-on-ink-2 transition-colors hover:text-orange"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
+      </div>
+
+      {/* ── Fitted wordmark "FREVO" (Massive display typography) ── */}
+      <div
+        aria-hidden
+        className="pointer-events-none relative flex w-full select-none justify-center overflow-hidden px-4"
+      >
+        <span className="display-tight whitespace-nowrap text-center text-[clamp(2.5rem,13vw,12rem)] leading-[0.85] tracking-[-0.04em] text-on-ink/[0.06]">
+          FREVO
+        </span>
       </div>
 
       {/* Bottom bar */}
