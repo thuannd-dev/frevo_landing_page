@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { ArrowUp, ArrowRight } from "lucide-react";
 import { FREVO_SITE, FREVO_FOOTER_GROUPS } from "@/lib/frevo";
+import { IMG } from "@/lib/media";
 import { FrevoLogo } from "@/components/frevo/FrevoLogo";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * FREVO footer. Standalone server component — no CMS fetch, no CM contact data,
@@ -13,38 +16,61 @@ import { FrevoLogo } from "@/components/frevo/FrevoLogo";
 export function FrevoFooter() {
   return (
     <footer className="bg-dark text-on-ink">
-      {/* CTA band — scroll target for #post-project */}
+      {/* CTA band — scroll target for #post-project with atmospheric studio background */}
       <section
         id="post-project"
-        className="scroll-mt-20 border-t border-line-invert bg-dark-2"
+        className="scroll-mt-20 relative isolate overflow-hidden border-t border-line-invert bg-dark text-on-ink"
       >
-        <div className="shell section text-center">
-          <p className="mono text-orange">Get started</p>
-          <h2 className="display-tight mt-5 text-[length:var(--text-h2)] leading-[1.04] text-on-ink">
-            Ready to find your next creative connection?
-          </h2>
-          <p className="mx-auto mt-5 max-w-md text-[length:var(--text-body)] text-on-ink-2">
-            We&apos;re building FREVO. Be among the first to use the platform.
-          </p>
+        {/* Atmosphere: creative studio background dimmed under scrim for contrast */}
+        <img
+          src={IMG.bigCta}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="pointer-events-none absolute inset-0 size-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-dark/70" />
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="mailto:hello@frevo.co?subject=Post%20a%20Project"
-              className="group label inline-flex h-12 items-center gap-2 bg-orange px-8 text-on-orange transition-colors duration-200 hover:bg-orange-press"
-            >
-              Post a Project
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </a>
-            <a
-              href="mailto:hello@frevo.co?subject=Join%20FREVO"
-              className="group label inline-flex h-12 items-center gap-2 border border-line-invert px-8 text-on-ink transition-colors duration-200 hover:border-orange/60 hover:text-orange"
-            >
-              Join FREVO as a Freelancer
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </a>
-          </div>
+        <div className="shell section relative z-10 text-center">
+          <Reveal>
+            <Eyebrow invert>Get started</Eyebrow>
+          </Reveal>
 
-          <p className="mono mt-6 text-on-ink-3">{FREVO_SITE.email}</p>
+          <Reveal delay={0.08}>
+            <h2 className="display-tight mx-auto mt-6 max-w-4xl text-[length:var(--text-h2)] leading-[1.04] text-on-ink">
+              Ready to find your next{" "}
+              <span className="text-orange">creative connection?</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.16}>
+            <p className="mx-auto mt-6 max-w-md text-[length:var(--text-lead)] leading-snug text-on-ink-2">
+              We&apos;re building FREVO. Be among the first to use the platform.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="mailto:hello@frevo.co?subject=Post%20a%20Project"
+                className="group label inline-flex h-12 items-center gap-2 bg-orange px-8 text-on-orange transition-colors duration-200 hover:bg-orange-press"
+              >
+                Post a Project
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="mailto:hello@frevo.co?subject=Join%20FREVO"
+                className="group label inline-flex h-12 items-center gap-2 border border-line-invert px-8 text-on-ink transition-colors duration-200 hover:border-orange/60 hover:text-orange"
+              >
+                Join FREVO as a Freelancer
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.32}>
+            <p className="mono mt-8 text-on-ink-3">{FREVO_SITE.email}</p>
+          </Reveal>
         </div>
       </section>
 
