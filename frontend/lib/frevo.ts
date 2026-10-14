@@ -17,10 +17,12 @@ export const FREVO_SITE = {
 // Navigation (desktop + mobile)
 // ---------------------------------------------------------------------------
 export const FREVO_NAV = [
+  { label: "Why FREVO", href: "#right-fit" },
   { label: "Explore Talent", href: "#talent" },
-  { label: "For Businesses", href: "#right-fit" },
-  { label: "For Freelancers", href: "#right-fit" },
   { label: "How It Works", href: "#how-it-works" },
+  { label: "Platform", href: "#capabilities" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Blog", href: "/blog" },
 ] as const;
 
 // ---------------------------------------------------------------------------

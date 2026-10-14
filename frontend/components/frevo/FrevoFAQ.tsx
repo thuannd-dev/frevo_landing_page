@@ -15,7 +15,7 @@ export function FrevoFAQ({
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-dark text-on-ink section">
+    <section id="faq" className="scroll-mt-20 bg-dark text-on-ink section">
       <div className="shell">
         <div className="grid12">
           <header className="col-span-12 flex flex-col gap-5 md:col-span-10 md:col-start-2">
