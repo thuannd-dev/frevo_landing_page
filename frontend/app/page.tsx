@@ -6,7 +6,7 @@ import { RightFit } from "@/components/frevo/RightFit";
 import { FeaturedTalent } from "@/components/frevo/FeaturedTalent";
 import { FrevoProcess } from "@/components/frevo/FrevoProcess";
 import { PlatformCapabilities } from "@/components/frevo/PlatformCapabilities";
-import { TrustSection } from "@/components/frevo/TrustSection";
+import { FrevoFAQ } from "@/components/frevo/FrevoFAQ";
 import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 
 /**
@@ -70,7 +70,7 @@ export default function HomePage() {
         <FeaturedTalent />
         <FrevoProcess />
         <PlatformCapabilities />
-        <TrustSection />
+        <FrevoFAQ />
       </main>
       <FrevoFooter />
     </>

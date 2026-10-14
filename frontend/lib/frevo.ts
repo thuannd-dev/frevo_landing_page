@@ -165,23 +165,76 @@ export const FREVO_TALENT = FREVO_PROFILES;
 export const FREVO_PROCESS = [
   {
     step: "01",
+    phase: "Define",
     title: "Define the Project",
-    body: "Use a structured brief to describe your goal, deliverables, budget and timeline. Clear requirements set the foundation for a good match.",
+    subtitle: "Define what you need before a single message is sent.",
+    body: "Use a structured brief to describe your goal, deliverables, budget, and timeline. Clear requirements set the foundation for precision matching.",
+    deliverables: ["Structured Brief", "Scope & Budget", "Timeline Targets", "Reference Direction"],
+    icon: "FileText",
+    preview: {
+      type: "brief",
+      badge: "Brief Builder",
+      projectTitle: "Minimalist Brand Identity & Packaging",
+      scope: "Logo system, 3D bottle renders, print-ready packaging",
+      timeline: "4 Weeks · Fixed Milestones",
+      budget: "$2,800 – $4,200",
+      status: "Ready for Matching",
+    },
   },
   {
     step: "02",
-    title: "Find the Right Fit",
-    body: "Explore freelancers whose skills, portfolio and availability match your project — not just the most available option.",
+    phase: "Match",
+    title: "Match & Shortlist",
+    subtitle: "Curated creators matched to your specific aesthetic.",
+    body: "Explore curated freelancers and creative pods whose style, portfolio, and availability directly fit your brief — no spam proposals or cheap bidding wars.",
+    deliverables: ["Curated Talent", "Comparable Work", "Transparent Rates", "Direct Chat"],
+    icon: "Search",
+    preview: {
+      type: "match",
+      badge: "AI & Domain Match",
+      creatorName: "Monk Studio Pod",
+      discipline: "Brand & Packaging Pod",
+      matchScore: "98% Aesthetic Fit",
+      pastWork: "White Wolf Packaging + The Avenry",
+      rate: "$3,200 (Fixed Escrow)",
+      status: "Available for Q2",
+    },
   },
   {
     step: "03",
+    phase: "Collaborate",
     title: "Collaborate with Clarity",
-    body: "Agree on scope, milestones and responsibilities before work begins. A shared workspace keeps progress visible to both parties. *(planned)*",
+    subtitle: "Milestone escrow keeps progress visible and safe.",
+    body: "Agree on milestones and revision cycles before work begins. An integrated workspace with escrow protection keeps progress transparent and funds secure.",
+    deliverables: ["Milestone Escrow", "Progress Checkpoints", "Revision Alignment", "File Staging"],
+    icon: "Layers",
+    preview: {
+      type: "escrow",
+      badge: "Escrow Protection",
+      milestones: [
+        { name: "M1: Brand Identity & Moodboards", status: "Approved · $1,200 Released", active: false },
+        { name: "M2: 3D Packaging & Labeling", status: "In Progress · $1,500 In Escrow", active: true },
+        { name: "M3: Production Guidelines & Source", status: "Upcoming · $800 Locked", active: false },
+      ],
+      protectionNote: "Funds released only upon client milestone sign-off.",
+    },
   },
   {
     step: "04",
+    phase: "Deliver",
     title: "Complete & Review",
-    body: "Work is reviewed on completion. Payment follows the agreed arrangement. Both parties build reputation through verified project reviews. *(planned)*",
+    subtitle: "Instant IP transfer and production-ready source files.",
+    body: "Work is reviewed and approved against defined criteria. Payment is released from escrow, and full IP ownership transfers automatically with raw source files.",
+    deliverables: ["Final Deliverables", "Escrow Release", "100% IP Ownership", "Verified Review"],
+    icon: "CheckCircle2",
+    preview: {
+      type: "deliver",
+      badge: "Completion & IP Transfer",
+      files: ["brand_guidelines_v2.pdf", "packaging_dieline.ai", "render_scene_4k.blend"],
+      ipStatus: "100% Client IP Ownership Assigned",
+      escrowStatus: "All Milestones Settled (100%)",
+      verifiedBadge: "Verified Project Delivery",
+    },
   },
 ] as const;
 
@@ -344,6 +397,7 @@ export const FREVO_FOOTER_GROUPS = [
       { label: "Explore Talent", href: "#talent" },
       { label: "Post a Project", href: "#post-project" },
       { label: "How It Works", href: "#how-it-works" },
+      { label: "FAQ", href: "#faq" },
     ],
   },
   {
@@ -362,4 +416,61 @@ export const FREVO_FOOTER_GROUPS = [
     ],
   },
 ] as const;
+
+// ---------------------------------------------------------------------------
+// Section 02: Differentiators (Why FREVO vs Traditional Platforms)
+// ---------------------------------------------------------------------------
+export const FREVO_DIFFERENTIATORS = [
+  {
+    index: "01",
+    title: "Curated Talent Network",
+    body: "No open bid spams or unverified accounts. Every freelancer and pod is reviewed against real client deliveries and verified capabilities.",
+  },
+  {
+    index: "02",
+    title: "Project-First Matching",
+    body: "Matched directly by domain requirements, visual aesthetics, and comparable past deliverables — never by generic keyword tags.",
+  },
+  {
+    index: "03",
+    title: "Scope Before Day One",
+    body: "Deliverables, revision cycles, timelines, and acceptance criteria are locked in structured agreements before a single hour of work starts.",
+  },
+  {
+    index: "04",
+    title: "No Race to the Bottom",
+    body: "No cheap proposal race. Transparent milestone escrow protects client capital while guaranteeing fair, timely compensation for creators.",
+  },
+] as const;
+
+// ---------------------------------------------------------------------------
+// Section 07: Frequently Asked Questions (Structured for FREVO)
+// ---------------------------------------------------------------------------
+export const FREVO_FAQS = [
+  {
+    q: "How is FREVO different from Upwork or Fiverr?",
+    a: "Unlike open bidding marketplaces where you wade through 50+ cut-and-paste proposals, FREVO curates verified creators and small creative pods. We focus strictly on creative work (branding, visual design, 3D, motion, content), with pre-aligned project scopes and milestone-backed escrow.",
+  },
+  {
+    q: "How does milestone escrow protect both parties?",
+    a: "When a contract begins, the client deposits funds for the active milestone into FREVO Escrow. The freelancer works knowing the budget is locked and secure. Funds are only released to the freelancer once the client reviews and signs off on the delivered milestone.",
+  },
+  {
+    q: "Can I hire a multi-disciplinary team or Pod?",
+    a: "Yes. In addition to independent specialists, FREVO supports Creative Pods — pre-assembled teams of art directors, designers, copywriters, and 3D artists who collaborate seamlessly under a single project lead and unified contract.",
+  },
+  {
+    q: "Does it cost anything to post a project brief?",
+    a: "Posting a project brief and receiving curated matches on FREVO is completely free. Platform fees only apply once a contract is formally accepted and funded into milestone escrow.",
+  },
+  {
+    q: "Who owns the intellectual property (IP) upon completion?",
+    a: "You do. Full, unencumbered intellectual property rights and all raw production source files transfer automatically to the client upon final milestone approval and payment release.",
+  },
+  {
+    q: "What happens if a deliverable doesn't meet the agreed scope?",
+    a: "Milestones are defined with objective acceptance criteria and fixed revision loops. If an issue cannot be resolved through revisions, FREVO's project mediation team steps in to inspect the brief, review submissions against criteria, and adjust or refund escrow accordingly.",
+  },
+] as const;
+
 

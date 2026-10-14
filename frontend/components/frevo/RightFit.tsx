@@ -2,32 +2,11 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Aurora } from "@/components/fx/Aurora";
 import { Spotlight } from "@/components/fx/Spotlight";
+import { FREVO_DIFFERENTIATORS } from "@/lib/frevo";
 
 const glass =
   "rounded-2xl border border-on-ink/10 bg-on-ink/[0.04] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-orange/40";
 
-const CONSIDERATIONS = [
-  {
-    index: "01",
-    title: "Relevant Skills & Expertise",
-    body: "Does the freelancer's skill set match what your specific project actually requires?",
-  },
-  {
-    index: "02",
-    title: "Portfolio & Comparable Work",
-    body: "Has the freelancer done work similar to yours — not just impressive, but comparable in type and scope?",
-  },
-  {
-    index: "03",
-    title: "Budget & Availability",
-    body: "Are they available during your timeline and within a range you can realistically agree on?",
-  },
-  {
-    index: "04",
-    title: "Scope, Deliverables & Deadline",
-    body: "Is the project defined precisely enough for both parties to say yes with shared understanding?",
-  },
-];
 
 /**
  * Explains the matching problem and positions FREVO's approach for both audiences.
@@ -84,9 +63,9 @@ export function RightFit() {
           </Reveal>
         </div>
 
-        {/* Consideration pills grid */}
+        {/* Differentiators grid */}
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CONSIDERATIONS.map((c, i) => (
+          {FREVO_DIFFERENTIATORS.map((c, i) => (
             <Reveal key={c.title} delay={0.08 + i * 0.06}>
               <div className={`${glass} relative flex h-full flex-col overflow-hidden p-6`}>
                 <span className="absolute left-0 top-0 h-0.5 w-8 bg-orange transition-all duration-500 group-hover:w-full" />
