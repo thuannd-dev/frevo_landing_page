@@ -108,13 +108,6 @@ export function RightFit() {
             </Reveal>
           ))}
         </div>
-
-        {/* Honest AI note */}
-        <Reveal delay={0.1}>
-          <p className="mono mt-8 text-on-ink-3">
-            Smart matching based on project requirements is planned for a future release.
-          </p>
-        </Reveal>
       </div>
     </section>
   );

@@ -367,7 +367,7 @@ export const FREVO_CAPABILITIES: Capability[] = [
       "Automated Shortlist",
     ],
     icon: "Sparkles",
-    status: "planned",
+    status: "mvp",
   },
   {
     id: "ai-fit",
@@ -383,7 +383,7 @@ export const FREVO_CAPABILITIES: Capability[] = [
       "Decision Support",
     ],
     icon: "BarChart2",
-    status: "planned",
+    status: "mvp",
   },
 ];
 

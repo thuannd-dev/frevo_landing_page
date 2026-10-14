@@ -81,9 +81,8 @@ export function PlatformCapabilities() {
           </span>
         </div>
 
-        {/* Capability panels (6 MVP + 2 Planned AI) */}
+        {/* Capability panels */}
         {FREVO_CAPABILITIES.map((cap) => {
-          const isPlanned = cap.status === "planned";
           return (
             <article
               key={cap.id}
@@ -93,18 +92,9 @@ export function PlatformCapabilities() {
                 <span className="display text-[clamp(3rem,7vw,6.5rem)] leading-none text-on-ink/10">
                   {cap.index}
                 </span>
-                {isPlanned && (
-                  <span className="mono text-mono text-on-ink-3">
-                    [Coming later]
-                  </span>
-                )}
               </div>
 
-              <h3
-                className={`display-tight -mt-4 break-words text-[clamp(2.25rem,4.2vw,4.5rem)] leading-[0.95] ${
-                  isPlanned ? "text-on-ink/80" : "text-on-ink"
-                }`}
-              >
+              <h3 className="display-tight -mt-4 break-words text-[clamp(2.25rem,4.2vw,4.5rem)] leading-[0.95] text-on-ink">
                 {cap.title}
               </h3>
 
@@ -127,19 +117,13 @@ export function PlatformCapabilities() {
                 </ul>
               ) : null}
 
-              {isPlanned ? (
-                <span className="mono mt-8 inline-flex items-center gap-2 text-on-ink-3">
-                  [Coming later · Planned for a future release]
-                </span>
-              ) : (
-                <Link
-                  href="#how-it-works"
-                  className="group label mt-8 inline-flex items-center gap-2 text-on-ink transition-colors hover:text-orange"
-                >
-                  Explore workflow
-                  <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
-              )}
+              <Link
+                href="#how-it-works"
+                className="group label mt-8 inline-flex items-center gap-2 text-on-ink transition-colors hover:text-orange"
+              >
+                Explore workflow
+                <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
             </article>
           );
         })}
