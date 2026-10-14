@@ -13,10 +13,7 @@ import { Tilt } from "@/components/fx/Tilt";
  */
 export function FeaturedTalent() {
   return (
-    <section
-      id="talent"
-      className="scroll-mt-20 bg-dark-2 text-on-ink section"
-    >
+    <section id="talent" className="scroll-mt-20 bg-dark-2 text-on-ink section">
       <div className="shell">
         {/* Header row */}
         <div className="grid12 items-end gap-y-8">
@@ -32,7 +29,10 @@ export function FeaturedTalent() {
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={0.1} className="col-span-12 lg:col-span-3 lg:justify-self-end">
+          <Reveal
+            delay={0.1}
+            className="col-span-12 lg:col-span-3 lg:justify-self-end"
+          >
             <span className="mono inline-flex items-center gap-2 text-on-ink-3">
               Drag to explore
               <MoveRight className="size-4" aria-hidden />
@@ -55,6 +55,7 @@ export function FeaturedTalent() {
                     alt={`${profile.name} — ${profile.featuredWork.title}`}
                     fill
                     sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 84vw"
+                    priority={i === 0}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 opacity-95 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/10 to-transparent" />
@@ -80,6 +81,7 @@ export function FeaturedTalent() {
                         src={profile.avatar}
                         alt={profile.name}
                         fill
+                        sizes="40px"
                         className="object-cover"
                       />
                     </div>
