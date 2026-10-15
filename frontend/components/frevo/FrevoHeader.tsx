@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   motion,
   AnimatePresence,
@@ -25,6 +26,10 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
  * has FREVO nav, no Services mega-menu, no BookingButton, no CMS calls.
  */
 export function FrevoHeader() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const getHref = (href: string) => (isHome && href.startsWith("/#") ? href.slice(1) : href);
+
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion() ?? false;
@@ -81,7 +86,7 @@ export function FrevoHeader() {
             {FREVO_NAV.map((item) => (
               <Link
                 key={item.label}
-                href={item.href}
+                href={getHref(item.href)}
                 className="label group/nav relative inline-flex items-center gap-1 py-1 text-on-ink-2 transition-colors hover:text-on-ink"
               >
                 {item.label}
@@ -91,7 +96,7 @@ export function FrevoHeader() {
             <ThemeToggle />
             <Magnetic strength={0.5}>
               <Link
-                href="#post-project"
+                href={isHome ? "#post-project" : "/#post-project"}
                 className="group/cta label flex h-9 items-center gap-1.5 bg-orange px-4 text-on-orange transition-colors duration-200 hover:bg-orange-press"
               >
                 Post a Project
@@ -164,7 +169,7 @@ export function FrevoHeader() {
                     className="border-t border-line-invert"
                   >
                     <Link
-                      href={item.href}
+                      href={getHref(item.href)}
                       onClick={() => setOpen(false)}
                       className="display flex items-center gap-3 py-4 text-3xl font-extrabold text-on-ink"
                     >
@@ -180,7 +185,7 @@ export function FrevoHeader() {
                   className="border-t border-line-invert pt-4"
                 >
                   <Link
-                    href="#post-project"
+                    href={isHome ? "#post-project" : "/#post-project"}
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center gap-2 bg-orange px-6 py-3 label text-on-orange transition-colors hover:bg-orange-press"
                   >

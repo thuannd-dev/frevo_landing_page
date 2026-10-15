@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/seo";
 import { getPosts } from "@/lib/cms";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/agency/Footer";
+import { FrevoHeader } from "@/components/frevo/FrevoHeader";
+import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 import { PageHero } from "@/components/agency/PageHero";
 import { BlogIndex } from "@/components/blog/BlogIndex";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Blog",
+export const metadata: Metadata = {
+  title: "FREVO Journal — Insights & Perspectives on Creative Craft",
   description:
-    "Guides on digital marketing, SEO, Google Ads, social media and growth, from the Creative Monk studio in Chandigarh.",
-  path: "/blog",
-});
+    "Perspectives on branding, design systems, visual craft, and freelance pod collaboration from FREVO.",
+};
 
 export default async function BlogPage() {
   const POSTS = await getPosts();
@@ -19,13 +17,13 @@ export default async function BlogPage() {
   return (
     <>
       <span id="top" className="absolute top-0" aria-hidden />
-      <Header dark />
+      <FrevoHeader />
       <main className="bg-dark text-on-ink">
         <PageHero
-          index="/ 04"
-          kicker="Journal"
-          titleLines={["Notes from", "the studio"]}
-          lede="Practical guides on digital marketing, SEO, Google Ads, social media and growth, short reads that compound into something you own."
+          index="/ Journal"
+          kicker="FREVO Journal"
+          titleLines={["Insights & Notes", "on Creative Craft"]}
+          lede="Practical perspectives on creative craft, branding, design systems, and freelance pod collaboration."
           meta={`${POSTS.length} articles`}
         />
 
@@ -36,7 +34,7 @@ export default async function BlogPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FrevoFooter />
     </>
   );
 }

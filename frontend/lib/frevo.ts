@@ -17,11 +17,11 @@ export const FREVO_SITE = {
 // Navigation (desktop + mobile)
 // ---------------------------------------------------------------------------
 export const FREVO_NAV = [
-  { label: "Why FREVO", href: "#right-fit" },
-  { label: "Explore Talent", href: "#talent" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Platform", href: "#capabilities" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Why FREVO", href: "/#right-fit" },
+  { label: "Explore Talent", href: "/#talent" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Platform", href: "/#capabilities" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Blog", href: "/blog" },
 ] as const;
 
@@ -33,8 +33,8 @@ export const FREVO_HERO = {
   headline: ["The right creative.", "For the right project."],
   accentWord: "right", // both lines contain "right" — accent by position below
   sub: "For businesses that need specific creative work done. For freelancers ready for projects that fit.",
-  ctaPrimary: { label: "Post a Project", href: "#post-project" },
-  ctaSecondary: { label: "Explore Talent", href: "#talent" },
+  ctaPrimary: { label: "Post a Project", href: "/#post-project" },
+  ctaSecondary: { label: "Explore Talent", href: "/#talent" },
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -396,10 +396,10 @@ export const FREVO_FOOTER_GROUPS = [
   {
     title: "Explore",
     links: [
-      { label: "Explore Talent", href: "#talent" },
-      { label: "Post a Project", href: "#post-project" },
-      { label: "How It Works", href: "#how-it-works" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Explore Talent", href: "/#talent" },
+      { label: "Post a Project", href: "/#post-project" },
+      { label: "How It Works", href: "/#how-it-works" },
+      { label: "FAQ", href: "/#faq" },
     ],
   },
   {

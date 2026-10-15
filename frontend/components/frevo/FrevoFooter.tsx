@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUp, ArrowRight, Check } from "lucide-react";
 import { FREVO_SITE, FREVO_FOOTER_GROUPS, FREVO_SOCIALS } from "@/lib/frevo";
 import { IMG } from "@/lib/media";
@@ -63,6 +64,10 @@ function FrevoNewsletter() {
  * - Bottom bar with copyright, privacy, terms, and Back to top.
  */
 export function FrevoFooter() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const getHref = (href: string) => (isHome && href.startsWith("/#") ? href.slice(1) : href);
+
   return (
     <footer className="bg-dark text-on-ink">
       {/* CTA band — scroll target for #post-project with atmospheric studio background */}
@@ -164,7 +169,7 @@ export function FrevoFooter() {
                     {group.links.map((link) => (
                       <li key={link.label}>
                         <Link
-                          href={link.href}
+                          href={getHref(link.href)}
                           className="text-sm text-on-ink-2 transition-colors hover:text-orange"
                         >
                           {link.label}

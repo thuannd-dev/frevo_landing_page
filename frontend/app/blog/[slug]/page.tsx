@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { getPosts, getPost, getSite, getServicesGrid } from "@/lib/cms";
+import { getPosts, getPost } from "@/lib/cms";
 import { buildMetadata, articleSchema, breadcrumbSchema } from "@/lib/seo";
 import { stripHtml } from "@/lib/admin/html";
 import { Prose } from "@/components/ui/Prose";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/agency/Footer";
-import { ContactForm } from "@/components/agency/ContactForm";
+import { FrevoHeader } from "@/components/frevo/FrevoHeader";
+import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 import { Reveal, RevealLines } from "@/components/ui/Reveal";
 import { ShareRow } from "@/components/blog/ShareRow";
 
@@ -52,13 +51,11 @@ export default async function PostPage({
     ...POSTS.filter((p) => p.slug !== slug && p.category === post.category),
     ...POSTS.filter((p) => p.slug !== slug && p.category !== post.category),
   ].slice(0, 3);
-  const site = await getSite();
 
   // body may arrive as rich-text HTML (new) or a paragraph array (legacy data), normalise.
   const bodyHtml = Array.isArray(post.body)
     ? (post.body as unknown as string[]).map((p) => `<p>${p}</p>`).join("")
     : (post.body ?? "");
-  const servicesGrid = await getServicesGrid();
 
   const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -81,7 +78,7 @@ export default async function PostPage({
         ]}
       />
       <span id="top" className="absolute top-0" aria-hidden />
-      <Header dark />
+      <FrevoHeader />
       <main className="bg-dark text-on-ink">
         {/* ── Article header ── */}
         <section className="bg-dark pb-10 pt-[clamp(8rem,18vh,12rem)] md:pb-14">
@@ -130,9 +127,9 @@ export default async function PostPage({
               className="mono mt-9 flex items-center gap-2.5 text-on-ink-3"
             >
               <span className="grid size-7 place-items-center rounded-full bg-orange text-[11px] font-bold text-on-orange">
-                CM
+                FR
               </span>
-              <span className="text-on-ink-2">Written by Creative Monk</span>
+              <span className="text-on-ink-2">Written by FREVO Editorial</span>
             </Reveal>
           </div>
         </section>
@@ -251,9 +248,8 @@ export default async function PostPage({
           </section>
         )}
 
-        <ContactForm site={site} services={servicesGrid} />
       </main>
-      <Footer />
+      <FrevoFooter />
     </>
   );
 }
