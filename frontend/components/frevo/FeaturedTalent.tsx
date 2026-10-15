@@ -55,7 +55,7 @@ export function FeaturedTalent() {
                     alt={`${profile.name} — ${profile.featuredWork.title}`}
                     fill
                     sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 84vw"
-                    priority={i === 0}
+                    priority={i < 2}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 opacity-95 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/10 to-transparent" />

@@ -6,11 +6,20 @@ const nextConfig: NextConfig = {
   // 301s from the old WordPress URLs (posts, pages, service pages) to the new
   // structure — preserves SEO + old links after the domain moves to this site.
   async redirects() {
-    return legacyRedirects as {
-      source: string;
-      destination: string;
-      permanent: boolean;
-    }[];
+    const frevoRedirects = [
+      { source: "/services", destination: "/#talent", permanent: true },
+      { source: "/services/:path*", destination: "/#talent", permanent: true },
+      { source: "/about", destination: "/#right-fit", permanent: true },
+      { source: "/contact", destination: "/#post-project", permanent: true },
+    ];
+    return [
+      ...frevoRedirects,
+      ...(legacyRedirects as {
+        source: string;
+        destination: string;
+        permanent: boolean;
+      }[]),
+    ];
   },
   // three / R3F ship modern ESM; transpiling keeps older bundler paths happy.
   transpilePackages: ["three"],
