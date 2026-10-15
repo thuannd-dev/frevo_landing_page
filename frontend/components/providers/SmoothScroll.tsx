@@ -46,6 +46,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     });
 
     lenisRef.current = lenis;
+    if (typeof window !== "undefined") {
+      (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+    }
 
     // Keep ScrollTrigger in lockstep with Lenis.
     lenis.on("scroll", ScrollTrigger.update);
@@ -99,6 +102,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      if (typeof window !== "undefined") {
+        delete (window as unknown as { __lenis?: Lenis }).__lenis;
+      }
     };
   }, [isAdmin]);
 
