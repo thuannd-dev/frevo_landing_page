@@ -1,66 +1,69 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/seo";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/agency/Footer";
+import { FrevoHeader } from "@/components/frevo/FrevoHeader";
+import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 import { LegalDoc } from "@/components/agency/LegalDoc";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Privacy Policy",
-  description: "How Creative Monk collects, uses and protects your information.",
-  path: "/privacy",
-});
+export const metadata: Metadata = {
+  title: "Privacy Policy — FREVO",
+  description:
+    "How FREVO collects, uses and protects client project briefs, freelancer profiles, and collaboration data.",
+};
 
 export default function PrivacyPage() {
   return (
     <>
-      <Header dark />
+      <span id="top" className="absolute top-0" aria-hidden />
+      <FrevoHeader />
       <main className="bg-dark text-on-ink">
         <LegalDoc
           title="Privacy Policy"
-          updated="June 2026"
+          updated="October 2026"
           sections={[
             {
               h: "Overview",
               p: [
-                "Creative Monk (“we”, “us”) respects your privacy. This page explains what information we collect through this website, why, and how we handle it.",
+                "FREVO (“we”, “us”, “our”) operates a curated creative freelance marketplace and collaboration platform. This policy explains what information we collect, why we collect it, and how your data is handled and protected when using our platform.",
               ],
             },
             {
-              h: "Information we collect",
+              h: "Information We Collect",
               p: [
-                "Enquiries: when you use the contact form we collect your name, email, and the details you share so we can respond.",
-                "Newsletter: if you subscribe, we store your email address to send occasional updates. You can unsubscribe at any time.",
-                "Usage data: like most sites, basic analytics (pages visited, device, approximate location) may be collected to understand and improve the experience.",
+                "Project Briefs & Inquiries: When you post a project or contact us, we collect your name, business email, company details, project scope, deliverable specifications, and budget parameters.",
+                "Freelancer & Pod Profiles: For creative talent, we collect portfolios, case studies, verified past deliveries, skill categories, and profile identity information.",
+                "Collaboration & Escrow Records: Project communications, milestone agreements, approval logs, and transaction confirmations necessary to operate milestone-backed protection.",
+                "Platform Usage: Standard analytics (browser type, device information, interactions) to optimize marketplace matchmaking and platform performance.",
               ],
             },
             {
-              h: "How we use it",
+              h: "How We Use Information",
               p: [
-                "To reply to your enquiry and provide the services you ask about; to send updates you've subscribed to; and to maintain, secure and improve the website. We do not sell your personal information.",
+                "To connect businesses with curated creative talent and pods matching their precise project requirements.",
+                "To facilitate structured milestone workflows, project scopes, escrow deposits, and deliverable sign-offs.",
+                "To maintain security, prevent unauthorized access, and verify the integrity of the creative network. We never sell personal or company data.",
               ],
             },
             {
-              h: "Sharing & processors",
+              h: "Confidentiality & Creative IP",
               p: [
-                "We use trusted third-party providers to run the site (for example hosting and media/CDN services). They process data only on our behalf and under their own security commitments.",
+                "All project briefs, unpublished production files, brand assets, and creative deliverables shared within project scopes remain strictly confidential between the client and the engaged freelancer or pod.",
               ],
             },
             {
-              h: "Your rights",
+              h: "Service Processors & Infrastructure",
               p: [
-                "You can request access to, correction of, or deletion of the information we hold about you. Email us and we'll act on reasonable requests promptly.",
+                "We partner with secure cloud hosting, media delivery networks, and payment infrastructure providers. These partners process data strictly on our behalf under rigorous security commitments.",
               ],
             },
             {
-              h: "Contact",
+              h: "Your Rights & Inquiries",
               p: [
-                "Questions about this policy? Write to info@thecreativemonk.in.",
+                "You may request access to, correction of, or deletion of your profile or account information at any time. For privacy inquiries or data requests, contact us at hello@frevo.co.",
               ],
             },
           ]}
         />
       </main>
-      <Footer />
+      <FrevoFooter />
     </>
   );
 }

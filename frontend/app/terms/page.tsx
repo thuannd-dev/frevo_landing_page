@@ -1,64 +1,68 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/seo";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/agency/Footer";
+import { FrevoHeader } from "@/components/frevo/FrevoHeader";
+import { FrevoFooter } from "@/components/frevo/FrevoFooter";
 import { LegalDoc } from "@/components/agency/LegalDoc";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Terms of Service",
-  description: "The terms that govern your use of the Creative Monk website.",
-  path: "/terms",
-});
+export const metadata: Metadata = {
+  title: "Terms of Service — FREVO",
+  description:
+    "The terms and conditions that govern project briefs, talent matching, milestone escrow, and IP handover on FREVO.",
+};
 
 export default function TermsPage() {
   return (
     <>
-      <Header dark />
+      <span id="top" className="absolute top-0" aria-hidden />
+      <FrevoHeader />
       <main className="bg-dark text-on-ink">
         <LegalDoc
           title="Terms of Service"
-          updated="June 2026"
+          updated="October 2026"
           sections={[
             {
-              h: "Acceptance",
+              h: "Acceptance of Terms",
               p: [
-                "By using this website you agree to these terms. If you don't agree, please don't use the site.",
+                "By accessing or using the FREVO platform, you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our platform or services.",
               ],
             },
             {
-              h: "Use of the site",
+              h: "Platform Model & Project Scopes",
               p: [
-                "You may browse and share our content for personal, non-commercial reference. You agree not to misuse the site, attempt to disrupt it, or use it for anything unlawful.",
+                "FREVO operates as a curated creative marketplace matching businesses with independent creative specialists and pods.",
+                "Every project initiated on FREVO requires an agreed scope detailing deliverables, timelines, milestone checkpoints, and objective acceptance criteria before production begins.",
               ],
             },
             {
-              h: "Engagements",
+              h: "Milestone Escrow & Payment Protection",
               p: [
-                "This website is for information only and does not constitute an offer. Any project we take on is governed by a separate written agreement (proposal / statement of work) that sets out scope, fees, timelines and ownership.",
+                "To protect both clients and creators, funds for active milestones are deposited into FREVO Escrow prior to work commencing.",
+                "Escrow funds are released to the freelancer or pod only upon client review and formal milestone approval against agreed criteria.",
+                "Objective mediation is provided by FREVO if a submitted deliverable materially differs from the agreed brief specifications.",
               ],
             },
             {
-              h: "Intellectual property",
+              h: "Intellectual Property (IP) Handover",
               p: [
-                "The brand, copy, design and code of this site are owned by Creative Monk unless stated otherwise. Client work shown is displayed with the respective owners' brands and remains their property.",
+                "Upon final milestone approval and payment release, 100% full, unencumbered intellectual property rights, source files, and commercial licenses for the delivered work transfer automatically and unconditionally to the client.",
+                "Freelancers retain the right to showcase delivered creative work in their personal portfolios unless a formal Non-Disclosure Agreement (NDA) specifies otherwise.",
               ],
             },
             {
-              h: "Disclaimer",
+              h: "Community & Platform Integrity",
               p: [
-                "The site is provided “as is”. We work to keep information accurate and the site available, but make no warranties and aren't liable for losses arising from its use to the extent permitted by law.",
+                "Users agree to provide authentic portfolio samples, deliver honest project evaluations, adhere to agreed revision cycles, and refrain from circumventing milestone protections or engaging in fee avoidance.",
               ],
             },
             {
-              h: "Governing law & contact",
+              h: "Contact & Support",
               p: [
-                "These terms are governed by the laws of India, with courts in Punjab having jurisdiction. Questions? Write to info@thecreativemonk.in.",
+                "Questions regarding project agreements, milestone protections, or these terms? Reach our platform team at hello@frevo.co.",
               ],
             },
           ]}
         />
       </main>
-      <Footer />
+      <FrevoFooter />
     </>
   );
 }

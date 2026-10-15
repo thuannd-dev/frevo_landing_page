@@ -171,7 +171,12 @@ export const FREVO_PROCESS = [
     title: "Define the Project",
     subtitle: "Define what you need before a single message is sent.",
     body: "Use a structured brief to describe your goal, deliverables, budget, and timeline. Clear requirements set the foundation for precision matching.",
-    deliverables: ["Structured Brief", "Scope & Budget", "Timeline Targets", "Reference Direction"],
+    deliverables: [
+      "Structured Brief",
+      "Scope & Budget",
+      "Timeline Targets",
+      "Reference Direction",
+    ],
     icon: "FileText",
     preview: {
       type: "brief",
@@ -189,7 +194,12 @@ export const FREVO_PROCESS = [
     title: "Match & Shortlist",
     subtitle: "Curated creators matched to your specific aesthetic.",
     body: "Explore curated freelancers and creative pods whose style, portfolio, and availability directly fit your brief — no spam proposals or cheap bidding wars.",
-    deliverables: ["Curated Talent", "Comparable Work", "Transparent Rates", "Direct Chat"],
+    deliverables: [
+      "Curated Talent",
+      "Comparable Work",
+      "Transparent Rates",
+      "Direct Chat",
+    ],
     icon: "Search",
     preview: {
       type: "match",
@@ -208,15 +218,32 @@ export const FREVO_PROCESS = [
     title: "Collaborate with Clarity",
     subtitle: "Milestone escrow keeps progress visible and safe.",
     body: "Agree on milestones and revision cycles before work begins. An integrated workspace with escrow protection keeps progress transparent and funds secure.",
-    deliverables: ["Milestone Escrow", "Progress Checkpoints", "Revision Alignment", "File Staging"],
+    deliverables: [
+      "Milestone Escrow",
+      "Progress Checkpoints",
+      "Revision Alignment",
+      "File Staging",
+    ],
     icon: "Layers",
     preview: {
       type: "escrow",
       badge: "Escrow Protection",
       milestones: [
-        { name: "M1: Brand Identity & Moodboards", status: "Approved · $1,200 Released", active: false },
-        { name: "M2: 3D Packaging & Labeling", status: "In Progress · $1,500 In Escrow", active: true },
-        { name: "M3: Production Guidelines & Source", status: "Upcoming · $800 Locked", active: false },
+        {
+          name: "M1: Brand Identity & Moodboards",
+          status: "Approved · $1,200 Released",
+          active: false,
+        },
+        {
+          name: "M2: 3D Packaging & Labeling",
+          status: "In Progress · $1,500 In Escrow",
+          active: true,
+        },
+        {
+          name: "M3: Production Guidelines & Source",
+          status: "Upcoming · $800 Locked",
+          active: false,
+        },
       ],
       protectionNote: "Funds released only upon client milestone sign-off.",
     },
@@ -227,12 +254,21 @@ export const FREVO_PROCESS = [
     title: "Complete & Review",
     subtitle: "Instant IP transfer and production-ready source files.",
     body: "Work is reviewed and approved against defined criteria. Payment is released from escrow, and full IP ownership transfers automatically with raw source files.",
-    deliverables: ["Final Deliverables", "Escrow Release", "100% IP Ownership", "Verified Review"],
+    deliverables: [
+      "Final Deliverables",
+      "Escrow Release",
+      "100% IP Ownership",
+      "Verified Review",
+    ],
     icon: "CheckCircle2",
     preview: {
       type: "deliver",
       badge: "Completion & IP Transfer",
-      files: ["brand_guidelines_v2.pdf", "packaging_dieline.ai", "render_scene_4k.blend"],
+      files: [
+        "brand_guidelines_v2.pdf",
+        "packaging_dieline.ai",
+        "render_scene_4k.blend",
+      ],
       ipStatus: "100% Client IP Ownership Assigned",
       escrowStatus: "All Milestones Settled (100%)",
       verifiedBadge: "Verified Project Delivery",
@@ -396,16 +432,17 @@ export const FREVO_FOOTER_GROUPS = [
   {
     title: "Explore",
     links: [
-      { label: "Explore Talent", href: "/#talent" },
       { label: "Post a Project", href: "/#post-project" },
+      { label: "Explore Talent", href: "/#talent" },
       { label: "How It Works", href: "/#how-it-works" },
+      { label: "Platform", href: "/#capabilities" },
       { label: "FAQ", href: "/#faq" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
+      { label: "About FREVO", href: "/#right-fit" },
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "mailto:hello@frevo.co" },
     ],
@@ -413,8 +450,8 @@ export const FREVO_FOOTER_GROUPS = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
     ],
   },
 ] as const;
@@ -424,7 +461,6 @@ export const FREVO_SOCIALS = [
   { label: "X / Twitter", href: "https://x.com" },
   { label: "Instagram", href: "https://instagram.com" },
 ] as const;
-
 
 // ---------------------------------------------------------------------------
 // Section 02: Differentiators (Why FREVO vs Traditional Platforms)
@@ -481,5 +517,3 @@ export const FREVO_FAQS = [
     a: "Milestones are defined with objective acceptance criteria and fixed revision loops. If an issue cannot be resolved through revisions, FREVO's project mediation team steps in to inspect the brief, review submissions against criteria, and adjust or refund escrow accordingly.",
   },
 ] as const;
-
-
