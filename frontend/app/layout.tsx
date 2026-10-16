@@ -58,14 +58,21 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "FREVO",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FREVO — Where Freelancers Evolve",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "FREVO — Where Freelancers Evolve",
     description:
       "The right creative. For the right project. Curated freelancers & creative pods with milestone escrow.",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

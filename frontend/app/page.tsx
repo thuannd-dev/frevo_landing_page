@@ -33,13 +33,21 @@ export const metadata: Metadata = {
     description:
       "Find creative freelancers and small teams that fit your project. Branding, video, photography, copywriting and more.",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FREVO — Where Freelancers Evolve",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "FREVO — Where Freelancers Evolve",
     description:
       "Find creative freelancers and small teams that fit your project.",
+    images: ["/og-image.png"],
   },
 };
 
