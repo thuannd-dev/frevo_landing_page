@@ -33,18 +33,17 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Creative Monk, Growth, with intention.",
-    template: "%s · Creative Monk",
+    default: "FREVO — Where Freelancers Evolve",
+    template: "%s · FREVO",
   },
   description:
-    "A full-service creative & digital growth studio from Chandigarh, India. Brand, web, performance marketing and motion under one roof.",
+    "Find creative freelancers and small teams that fit your project. Branding, video, 3D, photography, copywriting and more.",
   keywords: [
-    "digital marketing agency India",
-    "creative studio Chandigarh",
-    "brand design",
-    "web development",
-    "performance marketing",
-    "Creative Monk",
+    "creative freelancer platform",
+    "creative talent",
+    "freelance marketplace",
+    "branding design",
+    "FREVO",
   ],
   alternates: { canonical: "/" },
   icons: {
@@ -52,20 +51,20 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "Creative Monk, Growth, with intention.",
+    title: "FREVO — Where Freelancers Evolve",
     description:
-      "Brand, web, performance marketing and motion, engineered for compounding growth.",
+      "The right creative. For the right project. Curated freelancers & creative pods with milestone escrow.",
     type: "website",
-    locale: "en_IN",
+    locale: "en_US",
     url: SITE_URL,
-    siteName: "Creative Monk",
+    siteName: "FREVO",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Creative Monk, Growth, with intention.",
+    title: "FREVO — Where Freelancers Evolve",
     description:
-      "Brand, web, performance marketing and motion, engineered for compounding growth.",
+      "The right creative. For the right project. Curated freelancers & creative pods with milestone escrow.",
     images: ["/opengraph-image"],
   },
   robots: {
