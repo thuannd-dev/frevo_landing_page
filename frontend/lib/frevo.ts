@@ -263,14 +263,14 @@ export const FREVO_PROCESS = [
     icon: "CheckCircle2",
     preview: {
       type: "deliver",
-      badge: "Completion & IP Transfer",
+      badge: "IP Handover",
       files: [
         "brand_guidelines_v2.pdf",
         "packaging_dieline.ai",
         "render_scene_4k.blend",
       ],
       ipStatus: "100% Client IP Ownership Assigned",
-      escrowStatus: "All Milestones Settled (100%)",
+      escrowStatus: "All Settled (100%)",
       verifiedBadge: "Verified Project Delivery",
     },
   },
