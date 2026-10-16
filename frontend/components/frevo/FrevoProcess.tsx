@@ -105,7 +105,7 @@ export function FrevoProcess() {
         <div className="mt-8 sm:mt-12 lg:mt-16 relative">
           <div
             ref={tabsContainerRef}
-            className="flex border-b border-line-invert overflow-x-auto no-scrollbar scroll-smooth"
+            className="flex border-b border-line-invert overflow-x-auto md:overflow-visible overflow-y-hidden no-scrollbar scroll-smooth"
           >
             {FREVO_PROCESS.map((p, i) => {
               const Icon = ICON_MAP[p.icon as keyof typeof ICON_MAP] || FileText;

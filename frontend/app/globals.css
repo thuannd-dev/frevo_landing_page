@@ -458,6 +458,15 @@ html.lenis body {
   border-radius: 999px;
 }
 
+/* Hide scrollbar while preserving scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Prose sized for a dialog rather than a full page. */
 .cm-prose.cm-prose-compact {
   font-size: 0.98rem;
