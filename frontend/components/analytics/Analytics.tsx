@@ -42,6 +42,12 @@ function PageViews() {
  * unless the corresponding ID is configured.
  */
 export function Analytics() {
+  // Only fire real tracking in production to prevent dirtying analytics with localhost traffic
+  // and avoid ad-blocker (ERR_BLOCKED_BY_CLIENT) spam in local development.
+  if (process.env.NODE_ENV !== "production") {
+    return null;
+  }
+
   return (
     <>
       {GA_ID && (
