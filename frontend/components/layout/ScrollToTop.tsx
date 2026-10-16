@@ -16,12 +16,37 @@ export function ScrollToTop() {
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (y) => setShow(y > 900));
 
+  const handleScrollToTop = () => {
+    if (typeof window !== "undefined") {
+      const lenis = (
+        window as unknown as {
+          __lenis?: {
+            scrollTo: (
+              target: number | HTMLElement | string,
+              options?: object,
+            ) => void;
+          };
+        }
+      ).__lenis;
+
+      if (lenis) {
+        lenis.scrollTo(0, {
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        return;
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <AnimatePresence>
       {show && (
         <motion.button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={handleScrollToTop}
           aria-label="Back to top"
           initial={{ opacity: 0, scale: 0.8, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

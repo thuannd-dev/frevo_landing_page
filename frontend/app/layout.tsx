@@ -47,6 +47,10 @@ export const metadata: Metadata = {
     "Creative Monk",
   ],
   alternates: { canonical: "/" },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Creative Monk, Growth, with intention.",
     description:
