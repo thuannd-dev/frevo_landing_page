@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUp, ArrowRight, Check } from "lucide-react";
 import { FREVO_SITE, FREVO_FOOTER_GROUPS, FREVO_SOCIALS } from "@/lib/frevo";
+import { APP_URL } from "@/lib/site";
 import { IMG } from "@/lib/media";
 import { FrevoLogo } from "@/components/frevo/FrevoLogo";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -106,14 +107,14 @@ export function FrevoFooter() {
           <Reveal delay={0.24}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
-                href="mailto:hello@frevo.co?subject=Post%20a%20Project"
+                href={`${APP_URL}/register?role=business`}
                 className="group label inline-flex h-12 items-center gap-2 bg-orange px-8 text-on-orange transition-colors duration-200 hover:bg-orange-press"
               >
                 Post a Project
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </a>
               <a
-                href="mailto:hello@frevo.co?subject=Join%20FREVO"
+                href={`${APP_URL}/register?role=freelancer`}
                 className="group label inline-flex h-12 items-center gap-2 border border-line-invert px-8 text-on-ink transition-colors duration-200 hover:border-orange/60 hover:text-orange"
               >
                 Join FREVO as a Freelancer

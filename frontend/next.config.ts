@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
   },
   // Allow loading the dev server over the LAN IP (not just localhost), so dev
   // chunks + HMR aren't blocked as cross-origin. Add other hosts/devices here.
-  allowedDevOrigins: ["192.168.29.217"],
+  allowedDevOrigins: ["localhost", "127.0.0.1", "192.168.1.2", "192.168.29.217"],
   experimental: {
     optimizePackageImports: ["lucide-react", "motion"],
   },

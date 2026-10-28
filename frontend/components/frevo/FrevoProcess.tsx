@@ -13,6 +13,7 @@ import {
   Lock,
 } from "lucide-react";
 import { FREVO_PROCESS } from "@/lib/frevo";
+import { APP_URL } from "@/lib/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Aurora } from "@/components/fx/Aurora";
@@ -423,7 +424,7 @@ export function FrevoProcess() {
                     </button>
                   ) : (
                     <a
-                      href="#post-project"
+                      href={`${APP_URL}/register?role=business`}
                       className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-10 px-5 rounded-md bg-orange text-xs sm:text-sm font-semibold text-ink hover:bg-orange-press active:scale-98 transition-all shadow-md"
                     >
                       Post a Project <ArrowRight className="size-3.5 sm:size-4" />

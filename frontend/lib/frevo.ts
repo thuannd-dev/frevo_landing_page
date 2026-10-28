@@ -4,6 +4,8 @@
    Does NOT import from lib/content.ts, lib/agency.ts, or lib/cms.ts.
    ============================================================ */
 
+import { APP_URL } from "./site";
+
 // ---------------------------------------------------------------------------
 // Site identity
 // ---------------------------------------------------------------------------
@@ -33,7 +35,7 @@ export const FREVO_HERO = {
   headline: ["The right creative.", "For the right project."],
   accentWord: "right", // both lines contain "right" — accent by position below
   sub: "For businesses that need specific creative work done. For freelancers ready for projects that fit.",
-  ctaPrimary: { label: "Post a Project", href: "/#post-project" },
+  ctaPrimary: { label: "Post a Project", href: `${APP_URL}/register?role=business` },
   ctaSecondary: { label: "Explore Talent", href: "/#talent" },
 } as const;
 
@@ -432,7 +434,7 @@ export const FREVO_FOOTER_GROUPS = [
   {
     title: "Explore",
     links: [
-      { label: "Post a Project", href: "/#post-project" },
+      { label: "Post a Project", href: `${APP_URL}/register?role=business` },
       { label: "Explore Talent", href: "/#talent" },
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Platform", href: "/#capabilities" },

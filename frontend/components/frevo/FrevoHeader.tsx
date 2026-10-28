@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { FREVO_NAV, FREVO_SITE } from "@/lib/frevo";
+import { APP_URL } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/fx/Magnetic";
@@ -96,7 +97,7 @@ export function FrevoHeader() {
             <ThemeToggle />
             <Magnetic strength={0.5}>
               <Link
-                href={isHome ? "#post-project" : "/#post-project"}
+                href={`${APP_URL}/register?role=business`}
                 className="group/cta label flex h-9 items-center gap-1.5 bg-orange px-4 text-on-orange transition-colors duration-200 hover:bg-orange-press"
               >
                 Post a Project
@@ -185,7 +186,7 @@ export function FrevoHeader() {
                   className="border-t border-line-invert pt-4"
                 >
                   <Link
-                    href={isHome ? "#post-project" : "/#post-project"}
+                    href={`${APP_URL}/register?role=business`}
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center gap-2 bg-orange px-6 py-3 label text-on-orange transition-colors hover:bg-orange-press"
                   >

@@ -5,6 +5,12 @@ export const SITE_URL = (
   "https://frevo-theta.vercel.app"
 ).replace(/\/$/, "");
 
+/** Frevo Web App origin (dashboard, client portal, registration).
+    Override with NEXT_PUBLIC_APP_URL if needed; defaults to local Vite app. */
+export const APP_URL = (
+  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5173"
+).replace(/\/$/, "");
+
 /** GA4 measurement ID. Loading gtag.js also satisfies Google Search Console's
     "Google Analytics" ownership verification method. */
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-1XX3SG68HR";
