@@ -6,9 +6,12 @@ export const SITE_URL = (
 ).replace(/\/$/, "");
 
 /** Frevo Web App origin (dashboard, client portal, registration).
-    Override with NEXT_PUBLIC_APP_URL if needed; defaults to local Vite app. */
+    Override with NEXT_PUBLIC_APP_URL if needed; defaults to production domain in prod or localhost:5173 in dev. */
 export const APP_URL = (
-  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5173"
+  process.env.NEXT_PUBLIC_APP_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "https://frevocom.vercel.app"
+    : "http://localhost:5173")
 ).replace(/\/$/, "");
 
 /** GA4 measurement ID. Loading gtag.js also satisfies Google Search Console's
