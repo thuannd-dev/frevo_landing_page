@@ -266,6 +266,7 @@ export function FeaturedTalent() {
                     src={profile.featuredWork.cover}
                     alt={`${profile.name} — ${profile.featuredWork.title}`}
                     fill
+                    sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 84vw"
                     priority={i === 0}
                     loading={i < 2 ? "eager" : "lazy"}
                     draggable={false}

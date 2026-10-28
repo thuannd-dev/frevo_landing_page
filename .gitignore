@@ -39,3 +39,9 @@ yarn-error.log*
 # agent / local config
 .claude/
 .vercel
+
+# Legacy Creative Monk modules (ignored from Git)
+backend/
+scripts/
+.github/workflows/sync-backend.yml
+DEVELOPING.md

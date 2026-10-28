@@ -1,52 +1,71 @@
-# Creative Monk
+# FREVO — Landing Page
 
-Monorepo for **Creative Monk** — a dark, premium, multi-page agency site plus a
-schema-driven content API and admin dashboard.
+> **Where Freelancers Evolve** — The curated marketplace connecting businesses with verified creative freelancers and collaborative pods.
 
-```
-CM-Website/
-├── frontend/   Next.js 16 site + /admin dashboard  (deployed on Vercel)
-└── backend/    Express + TypeScript content API     (hosted separately)
-```
+This repository contains the official landing page for the **FREVO** platform.
 
-## frontend/ — site + admin
+---
 
-- **Next.js 16** (App Router) · React 19 · TypeScript · Tailwind v4 · Motion · GSAP/Lenis
-- Public pages read content through `lib/cms.ts`, which fetches the API with ISR and
-  **falls back to bundled static content** — so the site renders even with no backend.
-- `/admin` is a schema-driven dashboard (Radix + shadcn-style UI): login, overview,
-  search/filter tables, detail + edit side-sheets, Cloudinary media library.
-- Set `NEXT_PUBLIC_API_URL` (browser/admin) and `API_URL` (server) to the deployed
-  backend to go fully dynamic. See `frontend/.env.example`.
+## 🌐 Live Deployments
+
+- **Landing Page**: [https://frevo-theta.vercel.app](https://frevo-theta.vercel.app)
+- **Web App (Client & Freelancer Portal)**: [https://frevocom.vercel.app](https://frevocom.vercel.app)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **UI Library**: React 19, [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/)
+- **Animations**: [Motion](https://motion.dev/) (Framer Motion), GSAP, Lenis Smooth Scroll
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Hosting**: [Vercel](https://vercel.com/) (Root Directory: `frontend`)
+
+---
+
+## 🚀 Getting Started
+
+All landing page code is located in the `frontend/` directory.
+
+### 1. Install dependencies
 
 ```bash
 cd frontend
 npm install
-npm run dev      # http://localhost:3000  ( /admin for the dashboard )
-npm run build
 ```
 
-Deployed on Vercel with **Root Directory = `frontend`**.
+### 2. Environment Variables
 
-## backend/ — content API
+Create a `.env.local` file inside the `frontend/` directory (see `.env.example`):
 
-- **Express + TypeScript**, data in **Turso** (libSQL), media on **Cloudinary**,
-  JWT-protected admin writes.
-- One schema registry (`src/schema.ts`) drives validation, the public data shapes,
-  and the admin UI (served at `GET /api/schema`).
+```env
+# URL of the deployed FREVO Web App (Vite platform)
+NEXT_PUBLIC_APP_URL=http://localhost:5173
+
+# Canonical site origin for SEO & OpenGraph
+NEXT_PUBLIC_SITE_URL=https://frevo-theta.vercel.app
+```
+
+### 3. Run the development server
 
 ```bash
-cd backend
-cp .env.example .env   # Turso, Cloudinary, JWT, admin creds
-npm install
-npm run seed           # load starter content into Turso
-npm run dev            # http://localhost:4000
+npm run dev
 ```
 
-Hosted **separately** (Render / Railway / Fly / Docker). See `backend/README.md`.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Going live end-to-end
+### 4. Build for Production
 
-1. Deploy `backend/` somewhere with a public URL; set its env (Turso/Cloudinary/JWT/admin).
-2. In the Vercel project, set `NEXT_PUBLIC_API_URL` and `API_URL` to that URL and redeploy.
-3. The site now reads from the API and the admin at `/admin` is fully operational.
+```bash
+npm run build
+npm run typecheck
+```
+
+---
+
+## 🔗 Platform Integration
+
+The Call-to-Action (CTA) buttons on this landing page navigate to the FREVO Web Application:
+- **Post a Project**: Redirects to the Business registration onboarding (`/register?role=business`).
+- **Join FREVO as a Freelancer**: Redirects to the Freelancer registration onboarding (`/register?role=freelancer`).
+- **Explore Talent**: Explores featured talent categories directly on the landing page (`/#talent`).
