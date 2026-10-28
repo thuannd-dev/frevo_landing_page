@@ -36,6 +36,8 @@ type ButtonProps = {
   children: React.ReactNode;
   className?: string;
   arrow?: boolean;
+  target?: string;
+  rel?: string;
 } & VariantProps<typeof button>;
 
 export function Button({
@@ -45,6 +47,8 @@ export function Button({
   variant,
   size,
   arrow = true,
+  target,
+  rel,
 }: ButtonProps) {
   const internal = href.startsWith("/") || href.startsWith("#");
   const external = /^https?:\/\//i.test(href);
@@ -62,18 +66,24 @@ export function Button({
     </>
   );
 
-  if (internal) {
+  if (internal && !target) {
     return (
       <Link href={href} className={cls}>
         {content}
       </Link>
     );
   }
+
+  const resolvedTarget = target ?? (external ? "_blank" : undefined);
+  const resolvedRel =
+    rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
+
   return (
     <a
       href={href}
       className={cls}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      target={resolvedTarget}
+      rel={resolvedRel}
     >
       {content}
     </a>

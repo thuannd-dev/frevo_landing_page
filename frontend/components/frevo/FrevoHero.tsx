@@ -92,7 +92,12 @@ export function FrevoHero() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Magnetic>
-              <Button href={FREVO_HERO.ctaPrimary.href} variant="primary" size="lg">
+              <Button
+                href={FREVO_HERO.ctaPrimary.href}
+                variant="primary"
+                size="lg"
+                target="_self"
+              >
                 {FREVO_HERO.ctaPrimary.label}
               </Button>
             </Magnetic>
